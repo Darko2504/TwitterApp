@@ -18,8 +18,4 @@
     <ProjectReference Include="..\TwitterApp.Services\TwitterApp.Services.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DIContainer\" />
-  </ItemGroup>
-
 </Project>

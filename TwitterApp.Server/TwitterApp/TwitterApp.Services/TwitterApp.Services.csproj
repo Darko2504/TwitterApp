@@ -18,4 +18,8 @@
     <ProjectReference Include="..\TwitterApp.Shared\TwitterApp.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Implementations\" />
+  </ItemGroup>
+
 </Project>

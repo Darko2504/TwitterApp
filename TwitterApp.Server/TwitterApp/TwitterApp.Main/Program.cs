@@ -1,3 +1,4 @@
+using TwitterApp.Helpers.DIContainer;
 using TwitterApp.Helpers.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddPostgreSqlDbContext(builder.Configuration);
 builder.Services.AddSwaggerGen();
+
+
+DIHelper.InjectDbRepositories(builder.Services);
 
 var app = builder.Build();
 
