@@ -1,0 +1,10 @@
+<Solution>
+  <Project Path="TwitterApp.DataAcess/TwitterApp.DataAcess.csproj" />
+  <Project Path="TwitterApp.Domain/TwitterApp.Domain.csproj" />
+  <Project Path="TwitterApp.Dtos/TwitterApp.Dtos.csproj" />
+  <Project Path="TwitterApp.Helpers/TwitterApp.Helpers.csproj" />
+  <Project Path="TwitterApp.Main/TwitterApp.Main.csproj" />
+  <Project Path="TwitterApp.Mappers/TwitterApp.Mappers.csproj" />
+  <Project Path="TwitterApp.Services/TwitterApp.Services.csproj" />
+  <Project Path="TwitterApp.Shared/TwitterApp.Shared.csproj" />
+</Solution>
