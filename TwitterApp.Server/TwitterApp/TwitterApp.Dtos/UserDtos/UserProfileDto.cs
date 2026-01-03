@@ -1,4 +1,4 @@
-﻿namespace TwitterApp.Dtos
+﻿namespace TwitterApp.Dtos.UserDtos
 {
     public class UserProfileDto
     {

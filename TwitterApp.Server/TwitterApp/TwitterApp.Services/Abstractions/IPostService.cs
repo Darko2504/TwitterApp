@@ -1,13 +1,14 @@
 ﻿using TwitterApp.Dtos;
+using TwitterApp.Shared.Responses;
 
 namespace TwitterApp.Services.Abstractions
 {
     public interface IPostService
     {
-        Task<PostDto> CreatePostAsync(CreatePostDto dto, string userId);
-        Task<List<PostDto>> GetFeedAsync();
-        Task<List<PostDto>> GetUserPostsAsync(string userId);
-        Task LikePostAsync(int postId, string userId);
-        Task UnlikePostAsync(int postId, string userId);
+        Task<CustomResponse<PostDto>> CreatePostAsync(CreatePostDto dto, string userId);
+        Task<CustomResponse<List<PostDto>>> GetFeedAsync();
+        Task<CustomResponse<List<PostDto>>> GetUserPostsAsync(string userId);
+        Task<CustomResponse> LikePostAsync(int postId, string userId);
+        Task<CustomResponse> UnlikePostAsync(int postId, string userId);
     }
 }

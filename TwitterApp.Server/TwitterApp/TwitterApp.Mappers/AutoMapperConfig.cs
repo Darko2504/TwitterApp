@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using TwitterApp.Domain.Entities;
 using TwitterApp.Dtos;
+using TwitterApp.Dtos.UserDtos;
 
 namespace TwitterApp.Mappers
 {
