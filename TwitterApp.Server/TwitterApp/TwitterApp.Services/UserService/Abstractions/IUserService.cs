@@ -8,5 +8,7 @@ namespace TwitterApp.Services.UserService.Abstractions
         Task<CustomResponse<RegisterUserResponseDto>> RegisterUserAsync(RegisterUserRequestDto request);
         Task<CustomResponse<LoginUserResponseDto>> LoginUserAsync(LoginUserRequestDto request);
         Task<CustomResponse<UserDto>> GetUserByIdAsync(string id);
+        Task<CustomResponse<UserProfileDto>> GetUserProfileAsync(string userId);
+
     }
 }

@@ -10,5 +10,6 @@ namespace TwitterApp.Services.Abstractions
         Task<CustomResponse<List<PostDto>>> GetUserPostsAsync(string userId);
         Task<CustomResponse> LikePostAsync(int postId, string userId);
         Task<CustomResponse> UnlikePostAsync(int postId, string userId);
+        Task<CustomResponse<PostDto>> RetweetPostAsync(int postId, string userId);
     }
 }

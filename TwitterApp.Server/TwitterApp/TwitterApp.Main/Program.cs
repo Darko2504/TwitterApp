@@ -1,23 +1,22 @@
 using TwitterApp.Helpers.DIContainer;
 using TwitterApp.Helpers.Extensions;
+using TwitterApp.Mappers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var appSettings = builder.Configuration.GetSection("AppSettings");
 
-// Controllers
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddAutoMapper(typeof(AutoMapperConfig).Assembly);
 
-// Custom extensions
-builder.Services.AddPostgreSqlDbContext(appSettings)
+builder.Services.AddPostgreSqlDbContext(builder.Configuration)
                 .AddIdentity()
                 .AddAuthentication()
-                .AddJwt(appSettings)
+                .AddJwt(builder.Configuration)
                 .AddCors()
                 .AddSwagger();
 
-// Dependency injection for repositories and services
 DIHelper.InjectDbRepositories(builder.Services);
 DIHelper.InjectServices(builder.Services);
 

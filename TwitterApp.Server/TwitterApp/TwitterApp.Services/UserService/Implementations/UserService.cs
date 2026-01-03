@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using TwitterApp.Domain.Entities;
+using TwitterApp.Dtos;
 using TwitterApp.Dtos.UserDtos;
 using TwitterApp.Services.UserService.Abstractions;
 using TwitterApp.Shared.CustomExceptions.UserExceptions;
@@ -133,6 +134,35 @@ namespace TwitterApp.Services.UserService.Implementations
             catch (Exception ex)
             {
                 return new CustomResponse<UserDto>($"Unexpected error: {ex.Message}");
+            }
+        }
+
+        public async Task<CustomResponse<UserProfileDto>> GetUserProfileAsync(string userId)
+        {
+            try
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user == null)
+                    throw new UserNotFoundException("User not found.");
+
+                var profile = new UserProfileDto
+                {
+                    UserId = user.Id,
+                    Username = user.UserName,
+                    Posts = user.Posts != null
+                        ? _mapper.Map<List<PostDto>>(user.Posts)
+                        : new List<PostDto>()
+                };
+
+                return new CustomResponse<UserProfileDto>(profile);
+            }
+            catch (UserNotFoundException ex)
+            {
+                return new CustomResponse<UserProfileDto>(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return new CustomResponse<UserProfileDto>($"Unexpected error: {ex.Message}");
             }
         }
     }

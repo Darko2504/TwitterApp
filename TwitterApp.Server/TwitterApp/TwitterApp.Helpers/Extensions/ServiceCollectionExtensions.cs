@@ -30,7 +30,7 @@ namespace TwitterApp.Helpers.Extensions
         }
         public static ConfigBuilder AddPostgreSqlDbContext(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetSection("DefaultConnection").Value;
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<TwitterAppDbContext>(options =>
             {
                 options.UseNpgsql(connectionString);
@@ -93,11 +93,13 @@ namespace TwitterApp.Helpers.Extensions
 
         public static ConfigBuilder AddJwt(this ConfigBuilder configBuilder, IConfiguration configuration)
         {
-            var token = configuration["Token"];
+            var token = configuration["AppSettings:Token"];
+            if (string.IsNullOrWhiteSpace(token))
+                throw new Exception("JWT token is not configured in appsettings.json");
             configBuilder.AuthenticationBuilder.AddJwtBearer(options =>
             {
                 options.SaveToken = true;
-                options.RequireHttpsMetadata = true;
+                options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
                     ValidateIssuerSigningKey = true,

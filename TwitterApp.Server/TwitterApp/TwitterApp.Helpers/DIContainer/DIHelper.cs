@@ -18,9 +18,9 @@ namespace TwitterApp.Helpers.DIContainer
         }
         public static void InjectServices(IServiceCollection services)
         {
+            services.AddTransient<IUserService, UserService>();
             services.AddTransient<ITokenService, TokenService>();
             services.AddTransient<IPostService, PostService>();
-            services.AddTransient<IUserService, UserService>();
 
         }
     }

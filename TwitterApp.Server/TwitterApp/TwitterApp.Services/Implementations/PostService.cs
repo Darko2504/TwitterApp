@@ -139,5 +139,41 @@ namespace TwitterApp.Services.Implementations
                 return new CustomResponse($"Unexpected error: {ex.Message}");
             }
         }
+
+        public async Task<CustomResponse<PostDto>> RetweetPostAsync(int postId, string userId)
+        {
+            try
+            {
+                // Get the original post
+                var originalPost = await _postRepository.GetByIdAsync(postId);
+                if (originalPost == null)
+                    throw new PostNotFoundException("Original post not found.");
+
+                // Create new post as a retweet
+                var retweet = new Post
+                {
+                    UserId = userId,
+                    RetweetOfPostId = originalPost.Id,
+                    Content = null // Retweet itself doesn't need new content
+                };
+
+                await _postRepository.AddAsync(retweet);
+
+                var retweetDto = _mapper.Map<PostDto>(retweet);
+                return new CustomResponse<PostDto>(retweetDto);
+            }
+            catch (PostNotFoundException ex)
+            {
+                return new CustomResponse<PostDto>(ex.Message);
+            }
+            catch (PostCreateException ex)
+            {
+                return new CustomResponse<PostDto>(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return new CustomResponse<PostDto>($"Unexpected error: {ex.Message}");
+            }
+        }
     }
 }

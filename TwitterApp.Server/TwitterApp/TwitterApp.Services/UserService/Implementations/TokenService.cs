@@ -23,6 +23,7 @@ namespace TwitterApp.Services.UserService.Implementations
         new Claim(JwtRegisteredClaimNames.Name, user.UserName),
         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
         new Claim(JwtRegisteredClaimNames.Sub, user.Id),
+        new Claim(ClaimTypes.NameIdentifier, user.Id) 
          };
 
             var jwt = GetJWT(claims);
@@ -38,8 +39,8 @@ namespace TwitterApp.Services.UserService.Implementations
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["AppSettings:Token"]));
 
             var token = new JwtSecurityToken(
-                issuer: _configuration["JWT:ValidIssuer"],
-                audience: _configuration["JWT:ValidAudience"],
+                issuer: null,
+                audience: null,
                 expires: DateTime.UtcNow.AddYears(1),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
