@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import axiosInstance from "../../api/axiosInstance";
-import type { RegisterRequest, AuthResponse, CustomResponse } from "../../types";
+import type {
+  RegisterRequest,
+  AuthResponse,
+  CustomResponse,
+} from "../../types";
 import { useNavigate } from "react-router-dom";
 
 const Register: React.FC = () => {

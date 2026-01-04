@@ -25,3 +25,22 @@ export interface UserDto {
   username: string;
   email: string;
 }
+
+export interface Post {
+  id: number;
+  content: string | null;
+  createdAt: string;
+  userId: string;
+  username: string | null;
+  likesCount: number;
+  isRetweet: boolean;
+  retweetOfPostId: number | null;
+  isLikedByCurrentUser?: boolean;
+}
+
+export interface UserProfile {
+  id: string;
+  username: string;
+  bio?: string;
+  posts: Post[];
+}

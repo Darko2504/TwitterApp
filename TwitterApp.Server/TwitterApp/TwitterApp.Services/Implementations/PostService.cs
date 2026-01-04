@@ -52,12 +52,20 @@ namespace TwitterApp.Services.Implementations
         }
 
         // Get all posts for the feed
-        public async Task<CustomResponse<List<PostDto>>> GetFeedAsync()
+        public async Task<CustomResponse<List<PostDto>>> GetFeedAsync(string currentUserId)
         {
             try
             {
                 var posts = await _postRepository.GetFeedAsync();
                 var postDtos = _mapper.Map<List<PostDto>>(posts);
+
+                // mark liked posts for this user
+                foreach (var postDto in postDtos)
+                {
+                    var post = posts.First(p => p.Id == postDto.Id);
+                    postDto.IsLikedByCurrentUser = post.Likes.Any(l => l.UserId == currentUserId);
+                }
+
                 return new CustomResponse<List<PostDto>>(postDtos);
             }
             catch (PostNotFoundException ex)
@@ -71,13 +79,24 @@ namespace TwitterApp.Services.Implementations
         }
 
         // Get all posts by a specific user
-        public async Task<CustomResponse<List<PostDto>>> GetUserPostsAsync(string userId)
+        public async Task<CustomResponse<List<PostDto>>> GetUserPostsAsync(string userId, string currentUserId)
         {
             try
             {
                 var posts = await _postRepository.GetPostsByUserAsync(userId);
                 var postDtos = _mapper.Map<List<PostDto>>(posts);
+                foreach (var postDto in postDtos)
+                {
+                    var post = posts.First(p => p.Id == postDto.Id);
+                    postDto.IsLikedByCurrentUser =
+                        post.Likes.Any(l => l.UserId == currentUserId);
+                }
+
+
+
                 return new CustomResponse<List<PostDto>>(postDtos);
+
+
             }
             catch (PostNotFoundException ex)
             {
@@ -120,6 +139,7 @@ namespace TwitterApp.Services.Implementations
         // Unlike a post
         public async Task<CustomResponse> UnlikePostAsync(int postId, string userId)
         {
+
             try
             {
                 var like = await _postLikeRepository.GetByPostAndUserAsync(postId, userId);

@@ -20,43 +20,7 @@ namespace TwitterApp.Controllers
             _userService = userService;
         }
 
-        [Authorize]
-        [HttpGet("profile/{userId}")]
-        public async Task<IActionResult> GetProfile(string userId)
-        {
-            try
-            {
-                var response = await _userService.GetUserProfileAsync(userId);
-                return Response(response);
-            }
-            catch (UserNotFoundException ex)
-            {
-                return Response(new CustomResponse<UserProfileDto>(ex.Message));
-            }
-            catch (Exception ex)
-            {
-                return Response(new CustomResponse<UserProfileDto>($"Unexpected error: {ex.Message}"));
-            }
-        }
-
-        [Authorize]
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(string id)
-        {
-            try
-            {
-                var response = await _userService.GetUserByIdAsync(id);
-                return Response(response);
-            }
-            catch (UserNotFoundException ex)
-            {
-                return Response(new CustomResponse<UserDto>(ex.Message));
-            }
-            catch (Exception ex)
-            {
-                return Response(new CustomResponse<UserDto>($"Unexpected error: {ex.Message}"));
-            }
-        }
+        
 
 
         [AllowAnonymous]

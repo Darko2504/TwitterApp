@@ -25,7 +25,8 @@ namespace TwitterApp.Controllers
         {
             try
             {
-                var response = await _postService.GetFeedAsync();
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                var response = await _postService.GetFeedAsync(userId);
                 return Response(response);
             }
             catch (Exception ex)
@@ -34,19 +35,20 @@ namespace TwitterApp.Controllers
             }
         }
 
-        [HttpGet("user/{userId}")]
-        public async Task<IActionResult> GetPostsByUser(string userId)
-        {
-            try
-            {
-                var response = await _postService.GetUserPostsAsync(userId);
-                return Response(response);
-            }
-            catch (Exception ex)
-            {
-                return Response(new CustomResponse($"Unexpected error: {ex.Message}"));
-            }
-        }
+        //[HttpGet("user/{userId}")]
+        //public async Task<IActionResult> GetPostsByUser(string userId)
+        //{
+        //    try
+        //    {
+        //        var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        //        var response = await _postService.GetUserPostsAsync(userId, currentUserId);
+        //        return Response(response);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Response(new CustomResponse($"Unexpected error: {ex.Message}"));
+        //    }
+        //}
 
         [HttpPost]
         public async Task<IActionResult> CreatePost([FromBody] CreatePostDto request)

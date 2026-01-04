@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using TwitterApp.Domain.Entities;
 using TwitterApp.Dtos;
 using TwitterApp.Dtos.UserDtos;
@@ -141,7 +142,9 @@ namespace TwitterApp.Services.UserService.Implementations
         {
             try
             {
-                var user = await _userManager.FindByIdAsync(userId);
+                var user = await _userManager.Users
+     .Include(u => u.Posts) 
+     .FirstOrDefaultAsync(u => u.Id == userId);
                 if (user == null)
                     throw new UserNotFoundException("User not found.");
 
@@ -154,6 +157,7 @@ namespace TwitterApp.Services.UserService.Implementations
                         : new List<PostDto>()
                 };
 
+               
                 return new CustomResponse<UserProfileDto>(profile);
             }
             catch (UserNotFoundException ex)

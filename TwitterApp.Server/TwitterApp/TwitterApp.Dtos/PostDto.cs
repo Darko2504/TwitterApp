@@ -12,5 +12,6 @@
         public int LikesCount { get; set; }
         public bool IsRetweet { get; set; }
         public int? RetweetOfPostId { get; set; }
+        public bool IsLikedByCurrentUser { get; set; }
     }
 }

@@ -9,14 +9,16 @@ namespace TwitterApp.Mappers
     {
         public AutoMapperConfig()
         {
-            // Post mappings
             CreateMap<Post, PostDto>()
-                .ForMember(dest => dest.Username,
-                    opt => opt.MapFrom(src => src.User.UserName))
-                .ForMember(dest => dest.LikesCount,
-                    opt => opt.MapFrom(src => src.Likes.Count))
-                .ForMember(dest => dest.IsRetweet,
-                    opt => opt.MapFrom(src => src.RetweetOfPostId != null));
+    .ForMember(dest => dest.Username,
+        opt => opt.MapFrom(src => src.User.UserName))
+    .ForMember(dest => dest.UserId,
+        opt => opt.MapFrom(src => src.User.Id)) // <-- ADD THIS
+    .ForMember(dest => dest.LikesCount,
+        opt => opt.MapFrom(src => src.Likes.Count))
+    .ForMember(dest => dest.IsRetweet,
+        opt => opt.MapFrom(src => src.RetweetOfPostId != null));
+
 
             CreateMap<CreatePostDto, Post>();
 
