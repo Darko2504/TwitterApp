@@ -36,7 +36,6 @@ const Login: React.FC = () => {
 
   return (
     <div className="flex min-h-screen w-full">
-      {/* Left side: login form */}
       <div className="w-1/2 flex items-center justify-center bg-gray-50">
         <form
           className="bg-white p-12 rounded-xl shadow-lg w-4/5 max-w-2xl"
@@ -83,10 +82,9 @@ const Login: React.FC = () => {
         </form>
       </div>
 
-      {/* Right side: logo */}
       <div className="w-1/2 flex items-center justify-center bg-blue-600">
         <img
-          src="/logo.png" // put your logo in public/logo.png
+          src="/logo.png" 
           alt="TwitterApp Logo"
           className="w-2/3 h-2/3 object-contain"
         />

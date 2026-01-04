@@ -9,7 +9,6 @@ const Feed: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate(); 
 
-  // Check token and fetch feed
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {

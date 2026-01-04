@@ -70,7 +70,6 @@ namespace TwitterApp.Services.UserService.Implementations
             }
         }
 
-        // LOGIN
         public async Task<CustomResponse<LoginUserResponseDto>> LoginUserAsync(LoginUserRequestDto request)
         {
             try
@@ -115,8 +114,6 @@ namespace TwitterApp.Services.UserService.Implementations
                 return new CustomResponse<LoginUserResponseDto>($"Unexpected error: {ex.Message}");
             }
         }
-
-        // GET USER PROFILE
         public async Task<CustomResponse<UserDto>> GetUserByIdAsync(string id)
         {
             try

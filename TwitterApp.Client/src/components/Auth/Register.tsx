@@ -41,7 +41,6 @@ const Register: React.FC = () => {
 
   return (
     <div className="flex min-h-screen">
-      {/* Left side: form */}
       <div className="flex-1 flex items-center justify-center bg-gray-50">
         <form
           className="bg-white p-12 rounded-xl shadow-lg w-full max-w-2xl"
@@ -97,10 +96,9 @@ const Register: React.FC = () => {
         </form>
       </div>
 
-      {/* Right side: logo always visible */}
       <div className="flex-1 flex items-center justify-center bg-blue-600">
         <img
-          src="/logo.png" // put your logo in public/logo.png
+          src="/logo.png" 
           alt="TwitterApp Logo"
           className="w-2/3 h-2/3 object-contain"
         />

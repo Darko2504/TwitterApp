@@ -55,7 +55,6 @@ const UserProfilePage: React.FC = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       <div className="max-w-2xl mx-auto">
-        {/* Top navbar with back button */}
         <div className="p-4 border-b border-gray-700 flex items-center gap-4">
           <button
             onClick={() => navigate("/feed")}
@@ -66,12 +65,10 @@ const UserProfilePage: React.FC = () => {
           <h2 className="text-2xl font-bold">@{user.username}</h2>
         </div>
 
-        {/* User posts only */}
         {user.posts.length === 0 ? (
           <p className="text-gray-400 p-4 text-center">No posts available.</p>
         ) : (
           user.posts.map((post) => {
-            // Format the timestamp nicely
             const date = new Date(post.createdAt);
             const formattedDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
 

@@ -12,7 +12,7 @@ const PostCard: React.FC<Props> = ({ post, onLikeToggle, onRetweet }) => {
   const navigate = useNavigate();
 
   const handleUsernameClick = () => {
-    navigate(`/user/${post.userId}`); // redirect to profile
+    navigate(`/user/${post.userId}`); 
   };
 
   return (

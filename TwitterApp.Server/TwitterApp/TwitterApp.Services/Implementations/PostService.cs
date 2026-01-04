@@ -25,7 +25,6 @@ namespace TwitterApp.Services.Implementations
             _mapper = mapper;
         }
 
-        // Create a new post or retweet
         public async Task<CustomResponse<PostDto>> CreatePostAsync(CreatePostDto dto, string userId)
         {
             try
@@ -51,7 +50,6 @@ namespace TwitterApp.Services.Implementations
             }
         }
 
-        // Get all posts for the feed
         public async Task<CustomResponse<List<PostDto>>> GetFeedAsync(string currentUserId)
         {
             try
@@ -59,7 +57,6 @@ namespace TwitterApp.Services.Implementations
                 var posts = await _postRepository.GetFeedAsync();
                 var postDtos = _mapper.Map<List<PostDto>>(posts);
 
-                // mark liked posts for this user
                 foreach (var postDto in postDtos)
                 {
                     var post = posts.First(p => p.Id == postDto.Id);
@@ -78,7 +75,6 @@ namespace TwitterApp.Services.Implementations
             }
         }
 
-        // Get all posts by a specific user
         public async Task<CustomResponse<List<PostDto>>> GetUserPostsAsync(string userId, string currentUserId)
         {
             try
@@ -108,7 +104,6 @@ namespace TwitterApp.Services.Implementations
             }
         }
 
-        // Like a post
         public async Task<CustomResponse> LikePostAsync(int postId, string userId)
         {
             try
@@ -136,7 +131,6 @@ namespace TwitterApp.Services.Implementations
             }
         }
 
-        // Unlike a post
         public async Task<CustomResponse> UnlikePostAsync(int postId, string userId)
         {
 
@@ -164,17 +158,15 @@ namespace TwitterApp.Services.Implementations
         {
             try
             {
-                // Get the original post
                 var originalPost = await _postRepository.GetByIdAsync(postId);
                 if (originalPost == null)
                     throw new PostNotFoundException("Original post not found.");
 
-                // Create new post as a retweet
                 var retweet = new Post
                 {
                     UserId = userId,
                     RetweetOfPostId = originalPost.Id,
-                    Content = null // Retweet itself doesn't need new content
+                    Content = null 
                 };
 
                 await _postRepository.AddAsync(retweet);

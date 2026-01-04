@@ -7,7 +7,6 @@ const axiosInstance = axios.create({
   },
 });
 
-// Add request interceptor to always include JWT
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");

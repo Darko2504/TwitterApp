@@ -18,12 +18,12 @@ const CreateTweet: React.FC = () => {
 
     const postData: CreatePostRequest = {
       content,
-      retweetOfPostId: null, // Normal tweet, not retweet
+      retweetOfPostId: null, 
     };
 
     try {
       await axiosInstance.post("/Post", postData);
-      navigate("/feed"); // Redirect to feed after creating
+      navigate("/feed"); 
     } catch (err: any) {
       setError(err.response?.data?.errors?.[0] || "Failed to create tweet");
     }
