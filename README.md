@@ -1,4 +1,4 @@
-cat << 'EOF' > README.md
+
 # TwitterApp Clone
 
 A Twitter-like social media application built with **React + TypeScript** on the frontend and **ASP.NET Core** with **C#** on the backend. Users can register, log in, create tweets, like/unlike, retweet, and view other user profiles.
