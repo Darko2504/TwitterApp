@@ -70,7 +70,9 @@ Open your browser at http://localhost:5173 (or the URL Vite outputs).
 🏗️ Architecture Overview
 
 Backend uses all of the good practices like:
+
 -Repository pattern for data manipulation and security
+
 -N-Tier architecture for good structure, readibility and scalability
 
 Frontend communicates with the backend API via Axios.
