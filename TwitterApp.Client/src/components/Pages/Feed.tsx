@@ -12,40 +12,55 @@ const Feed: React.FC = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      fetchFeed();
+      fetchFeed(token); 
     } else {
       navigate("/login");
     }
   }, []);
 
-  const fetchFeed = async () => {
+  const fetchFeed = async (token: string) => {
     try {
-      const res = await axiosInstance.get("/Post/feed");
+      const res = await axiosInstance.get("/Post/feed", {
+        headers: { Authorization: `Bearer ${token}` }, 
+      });
       setPosts(res.data.result);
     } catch (err) {
       console.error("Failed to load feed", err);
+      navigate("/login"); 
     } finally {
       setLoading(false);
     }
   };
 
   const handleLikeToggle = async (post: Post) => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
     try {
       if (post.isLikedByCurrentUser) {
-        await axiosInstance.post(`/Post/${post.id}/unlike`);
+        await axiosInstance.post(`/Post/${post.id}/unlike`, {}, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
       } else {
-        await axiosInstance.post(`/Post/${post.id}/like`);
+        await axiosInstance.post(`/Post/${post.id}/like`, {}, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
       }
-      fetchFeed();
+      fetchFeed(token);
     } catch (err) {
       console.error("Error liking/unliking post", err);
     }
   };
 
   const handleRetweet = async (postId: number) => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
     try {
-      await axiosInstance.post(`/Post/${postId}/retweet`);
-      fetchFeed();
+      await axiosInstance.post(`/Post/${postId}/retweet`, {}, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      fetchFeed(token);
     } catch (err) {
       console.error("Error retweeting post", err);
     }
@@ -53,7 +68,7 @@ const Feed: React.FC = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token"); 
-    navigate("/register"); 
+    navigate("/login"); 
   };
 
   const handleCreateTweet = () => {

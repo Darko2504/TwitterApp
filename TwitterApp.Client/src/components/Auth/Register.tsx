@@ -30,7 +30,7 @@ const Register: React.FC = () => {
 
       if (res.data.isSuccessfull && res.data.result) {
         localStorage.setItem("token", res.data.result.token);
-        navigate("/feed");
+        navigate("/login");
       } else {
         setError(res.data.errors[0] || "Registration failed");
       }
@@ -88,7 +88,7 @@ const Register: React.FC = () => {
             Already have an account?{" "}
             <span
               className="text-blue-500 cursor-pointer"
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/login")}
             >
               Login
             </span>

@@ -140,21 +140,27 @@ namespace TwitterApp.Services.UserService.Implementations
             try
             {
                 var user = await _userManager.Users
-     .Include(u => u.Posts) 
-     .FirstOrDefaultAsync(u => u.Id == userId);
+                    .Include(u => u.Posts)
+                        .ThenInclude(p => p.RetweetOfPost) 
+                            .ThenInclude(p => p.User) 
+                    .FirstOrDefaultAsync(u => u.Id == userId);
+
                 if (user == null)
                     throw new UserNotFoundException("User not found.");
+
+                var posts = user.Posts != null
+                    ? _mapper.Map<List<PostDto>>(user.Posts)
+                    : new List<PostDto>();
+
+                posts = posts.OrderByDescending(p => p.CreatedAt).ToList();
 
                 var profile = new UserProfileDto
                 {
                     UserId = user.Id,
                     Username = user.UserName,
-                    Posts = user.Posts != null
-                        ? _mapper.Map<List<PostDto>>(user.Posts)
-                        : new List<PostDto>()
+                    Posts = posts
                 };
 
-               
                 return new CustomResponse<UserProfileDto>(profile);
             }
             catch (UserNotFoundException ex)

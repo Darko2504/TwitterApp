@@ -36,6 +36,8 @@ export interface Post {
   isRetweet: boolean;
   retweetOfPostId: number | null;
   isLikedByCurrentUser?: boolean;
+   originalContent?: string;
+  originalUsername?: string;
 }
 
 export interface UserProfile {

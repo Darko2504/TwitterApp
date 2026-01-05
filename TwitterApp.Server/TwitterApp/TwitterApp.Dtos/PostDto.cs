@@ -13,5 +13,8 @@
         public bool IsRetweet { get; set; }
         public int? RetweetOfPostId { get; set; }
         public bool IsLikedByCurrentUser { get; set; }
+
+        public string? OriginalContent { get; set; }
+        public string? OriginalUsername { get; set; }
     }
 }

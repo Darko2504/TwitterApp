@@ -17,6 +17,8 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(""); // clear previous errors
+
     try {
       const res = await axiosInstance.post<CustomResponse<AuthResponse>>(
         "/Auth/login",
@@ -27,10 +29,13 @@ const Login: React.FC = () => {
         localStorage.setItem("token", res.data.result.token);
         navigate("/feed");
       } else {
-        setError(res.data.errors[0] || "Login failed");
+        setError(res.data.errors?.[0] || "Invalid username or password");
       }
     } catch (err: any) {
-      setError(err.response?.data?.errors?.[0] || "Login failed");
+      setError(
+        err.response?.data?.errors?.[0] ||
+          "Invalid username or password"
+      );
     }
   };
 
@@ -44,7 +49,9 @@ const Login: React.FC = () => {
           <h2 className="text-4xl font-bold mb-8 text-blue-500 text-center">
             TwitterApp
           </h2>
+
           {error && <p className="text-red-500 mb-4">{error}</p>}
+
           <input
             type="text"
             name="username"
@@ -54,6 +61,7 @@ const Login: React.FC = () => {
             className="w-full p-3 border rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
+
           <input
             type="password"
             name="password"
@@ -63,13 +71,14 @@ const Login: React.FC = () => {
             className="w-full p-3 border rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
+
           <button
             type="submit"
             className="w-full bg-blue-500 text-white py-3 rounded hover:bg-blue-600 transition"
-            onClick={() => navigate("/feed")}
           >
             Login
           </button>
+
           <p className="mt-4 text-sm text-right">
             Don't have an account?{" "}
             <span
@@ -84,7 +93,7 @@ const Login: React.FC = () => {
 
       <div className="w-1/2 flex items-center justify-center bg-blue-600">
         <img
-          src="/logo.png" 
+          src="/logo.png"
           alt="TwitterApp Logo"
           className="w-2/3 h-2/3 object-contain"
         />

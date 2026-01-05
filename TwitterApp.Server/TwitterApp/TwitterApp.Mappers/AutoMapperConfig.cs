@@ -13,16 +13,17 @@ namespace TwitterApp.Mappers
     .ForMember(dest => dest.Username,
         opt => opt.MapFrom(src => src.User.UserName))
     .ForMember(dest => dest.UserId,
-        opt => opt.MapFrom(src => src.User.Id)) // <-- ADD THIS
+        opt => opt.MapFrom(src => src.User.Id)) 
     .ForMember(dest => dest.LikesCount,
         opt => opt.MapFrom(src => src.Likes.Count))
     .ForMember(dest => dest.IsRetweet,
-        opt => opt.MapFrom(src => src.RetweetOfPostId != null));
+        opt => opt.MapFrom(src => src.RetweetOfPostId != null))
+    .ForMember(dest => dest.OriginalContent, opt => opt.MapFrom(src => src.RetweetOfPost != null ? src.RetweetOfPost.Content : null))
+    .ForMember(dest => dest.OriginalUsername, opt => opt.MapFrom(src => src.RetweetOfPost != null ? src.RetweetOfPost.User.UserName : null));
 
 
             CreateMap<CreatePostDto, Post>();
 
-            // User profile mappings
             CreateMap<User, UserProfileDto>()
                 .ForMember(dest => dest.Username,
                     opt => opt.MapFrom(src => src.UserName));
