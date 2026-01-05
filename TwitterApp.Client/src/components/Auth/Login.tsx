@@ -17,7 +17,7 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(""); // clear previous errors
+    setError(""); 
 
     try {
       const res = await axiosInstance.post<CustomResponse<AuthResponse>>(

@@ -55,7 +55,6 @@ const UserProfilePage: React.FC = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       <div className="max-w-2xl mx-auto">
-        {/* Top navbar */}
         <div className="p-4 border-b border-gray-700 flex items-center gap-4">
           <button
             onClick={() => navigate("/feed")}
@@ -66,7 +65,6 @@ const UserProfilePage: React.FC = () => {
           <h2 className="text-2xl font-bold">@{user.username}</h2>
         </div>
 
-        {/* User posts */}
         {user.posts.length === 0 ? (
           <p className="text-gray-400 p-4 text-center">No posts available.</p>
         ) : (
@@ -86,7 +84,6 @@ const UserProfilePage: React.FC = () => {
                   <span className="text-gray-500 text-xs">{formattedDate}</span>
                 </div>
 
-                {/* Show retweet if it exists */}
                 {post.isRetweet && post.originalContent ? (
                   <div className="text-gray-400 italic mb-2">
                     🔁 Retweeted from @{post.originalUsername ?? "unknown"}:
